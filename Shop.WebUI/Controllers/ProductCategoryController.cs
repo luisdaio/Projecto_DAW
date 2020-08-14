@@ -9,7 +9,6 @@ namespace Shop.WebUI.Controllers
 {
     public class ProductCategoryController : Controller
     {
-
         public ProductCategoryController()
         {
             // TODO: Inicializar Objecto que interage com a base de dados.
@@ -46,7 +45,7 @@ namespace Shop.WebUI.Controllers
         }
 
         // GET: ProductCategory/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string Id)
         {
             ProductCategory category = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
 
@@ -62,7 +61,7 @@ namespace Shop.WebUI.Controllers
 
         // POST: ProductCategory/Edit/5
         [HttpPost]
-        public ActionResult Edit(Product product, string Id)
+        public ActionResult Edit(ProductCategory category, string Id)
         {
             ProductCategory categoryToEdit = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
 
@@ -86,7 +85,7 @@ namespace Shop.WebUI.Controllers
         }
 
         // GET: ProductCategory/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string Id)
         {
             ProductCategory categoryToDelete = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
 
@@ -106,7 +105,7 @@ namespace Shop.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(ProductCategory category, string Id)
         {
-            Product categoryToDelete = new Product();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
+            ProductCategory categoryToDelete = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
 
             if (categoryToDelete == null)
             {

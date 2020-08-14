@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Core.Models;
+using Shop.Core.ViewModels;
 
 namespace Shop.WebUI.Controllers
 {
@@ -25,8 +26,10 @@ namespace Shop.WebUI.Controllers
         
         public ActionResult Create()
         {
-            Product product = new Product();
-            return View(product);
+            ProductViewModel viewModel = new ProductViewModel();
+            viewModel.product = new Product();
+            // viewModel.categories = productCategories.Collection();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -53,7 +56,10 @@ namespace Shop.WebUI.Controllers
             }
             else
             {
-                return View(product);
+                ProductViewModel viewModel = new ProductViewModel();
+                viewModel.product = product;
+                // viewModel.categories = productCategories.Collection(); TODO: Consultar a base de dados e ir buscar
+                return View(viewModel);
             }
         }
 
