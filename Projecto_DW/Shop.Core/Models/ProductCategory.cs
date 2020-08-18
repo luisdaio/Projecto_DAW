@@ -16,9 +16,9 @@ namespace Shop.Core.Models
         [Required]
         public string Name { get; set; }
 
-        public ProductCategory()
+        public ProductCategory(string Name)
         {
-            Id = Guid.NewGuid().ToString();
+            this.Name = Name;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Shop.Core.Contracts;
 using Shop.Core.Models;
 using Shop.Core.ViewModels;
 
@@ -10,8 +11,13 @@ namespace Shop.WebUI.Controllers
 {
     public class ProductController : Controller
     {
-        public ProductController()
+        IRepository<Product> productContext;
+        IRepository<ProductCategory> productCategoryContext;
+
+        public ProductController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
         {
+            this.productContext = productContext;
+            this.productCategoryContext = productCategoryContext;
             // TODO: Inicializar Objecto que interage com a base de dados.
         }
 
