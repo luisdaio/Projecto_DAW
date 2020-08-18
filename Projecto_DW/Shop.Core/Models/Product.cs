@@ -8,13 +8,8 @@ using System.Threading.Tasks;
 
 namespace Shop.Core.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        /// <summary>
-        /// Product Id. Unique database product identifier.
-        /// </summary>
-        public string Id { get; set; }
-
         /// <summary>
         /// Product Name.
         /// </summary>
@@ -47,11 +42,6 @@ namespace Shop.Core.Models
         /// </summary>
         [Required]
         public string Image { get; set; }
-
-        public Product()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
 
         public Product(string name, string description, decimal price, string category, string image)
         {
