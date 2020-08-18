@@ -120,5 +120,6 @@ namespace Shop.WebUI.Controllers
                 return View(categoryToDelete);
             }
         }
+        
     }
 }
