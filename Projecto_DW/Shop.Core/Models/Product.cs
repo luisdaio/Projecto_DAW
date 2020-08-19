@@ -40,7 +40,6 @@ namespace Shop.Core.Models
         /// <summary>
         /// Product image string.
         /// </summary>
-        [Required]
         public string Image { get; set; }
     }
 }

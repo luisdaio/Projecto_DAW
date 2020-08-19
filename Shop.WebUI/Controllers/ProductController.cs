@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -37,7 +38,7 @@ namespace Shop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase imageFile)
         {
             if (!ModelState.IsValid)
             {
@@ -45,6 +46,12 @@ namespace Shop.WebUI.Controllers
             }
             else
             {
+                if (imageFile != null)
+                {
+                    product.Image = product.Id + Path.GetExtension(imageFile.FileName);
+                    var path = Path.Combine(Server.MapPath("/Content/ProductImages/"), product.Image);
+                    imageFile.SaveAs(path);
+                }
                 this.productContext.Insert(product);
                 this.productContext.Commit();
                 return RedirectToAction("Index");
@@ -69,10 +76,10 @@ namespace Shop.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product, string Id)
+        public ActionResult Edit(Product product, string Id, HttpPostedFileBase imageFile)
         {
             Product productToEdit = this.productContext.Find(Id);
-
+            
             if (productToEdit == null)
             {
                 return HttpNotFound();
@@ -82,15 +89,20 @@ namespace Shop.WebUI.Controllers
                 if (!ModelState.IsValid)
                 {
                     return View(productToEdit);
-
                 }
                 else
                 {
+                    if (imageFile != null)
+                    {
+                        productToEdit.Image = product.Id + Path.GetExtension(imageFile.FileName);
+                        var path = Path.Combine(Server.MapPath("/Content/ProductImages/"), productToEdit.Image);
+                        imageFile.SaveAs(path);
+                    }
+
                     productToEdit.Name = product.Name;
                     productToEdit.Description = product.Description;
                     productToEdit.Category = product.Category;
                     productToEdit.Price = product.Price;
-                    productToEdit.Image = product.Image;
                     
                     this.productContext.Update(productToEdit);
                     this.productContext.Commit();
