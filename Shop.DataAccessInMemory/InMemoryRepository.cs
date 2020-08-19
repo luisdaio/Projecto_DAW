@@ -62,7 +62,7 @@ namespace Shop.DataAccessInMemory
             }
         }
 
-        public IQueryable<T> Collection(string Id)
+        public IQueryable<T> Collection()
         {
             return items.AsQueryable<T>();
         }

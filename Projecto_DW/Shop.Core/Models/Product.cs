@@ -42,15 +42,5 @@ namespace Shop.Core.Models
         /// </summary>
         [Required]
         public string Image { get; set; }
-
-        public Product(string name, string description, decimal price, string category, string image)
-        {
-            this.Id = Guid.NewGuid().ToString();
-            Name = name;
-            Description = description;
-            Price = price;
-            Category = category;
-            Image = image;
-        }
     }
 }

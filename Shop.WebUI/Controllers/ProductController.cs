@@ -18,24 +18,22 @@ namespace Shop.WebUI.Controllers
         {
             this.productContext = productContext;
             this.productCategoryContext = productCategoryContext;
-            // TODO: Inicializar Objecto que interage com a base de dados.
         }
 
         // GET: Product
         public ActionResult Index()
         {
-            List<Product> products = new List<Product>(); // TODO: obter a lista de contactos da base de dados.
-            products.Add(new Product("Iphone 10", "Telemóvel da marca Apple", 1000, "Smartphone", ""));
+            List<Product> products = this.productContext.Collection().ToList();
             return View(products);
         }
 
         
         public ActionResult Create()
         {
-            ProductViewModel viewModel = new ProductViewModel();
-            viewModel.product = new Product();
-            // viewModel.categories = productCategories.Collection();
-            return View(viewModel);
+            ProductViewModel productView = new ProductViewModel();
+            productView.product = new Product();
+            productView.categories = this.productCategoryContext.Collection().ToList();
+            return View(productView);
         }
 
         [HttpPost]
@@ -47,14 +45,15 @@ namespace Shop.WebUI.Controllers
             }
             else
             {
-                // TODO: Inserir o producto na base de dados.
+                this.productContext.Insert(product);
+                this.productContext.Commit();
                 return RedirectToAction("Index");
             }
         }
 
         public ActionResult Edit(string Id)
         {
-            Product product = new Product();  // TODO: Consultar a base de dados e obter o produto consoante o Id.
+            Product product = this.productContext.Find(Id);
 
             if (product  == null)
             {
@@ -64,7 +63,7 @@ namespace Shop.WebUI.Controllers
             {
                 ProductViewModel viewModel = new ProductViewModel();
                 viewModel.product = product;
-                // viewModel.categories = productCategories.Collection(); TODO: Consultar a base de dados e ir buscar
+                viewModel.categories = this.productCategoryContext.Collection();
                 return View(viewModel);
             }
         }
@@ -72,7 +71,7 @@ namespace Shop.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(Product product, string Id)
         {
-            Product productToEdit = new Product();  // TODO: Consultar a base de dados e obter o produto consoante o Id.
+            Product productToEdit = this.productContext.Find(Id);
 
             if (productToEdit == null)
             {
@@ -87,7 +86,14 @@ namespace Shop.WebUI.Controllers
                 }
                 else
                 {
-                    //TODO: Guardar as alterações na base de dados.
+                    productToEdit.Name = product.Name;
+                    productToEdit.Description = product.Description;
+                    productToEdit.Category = product.Category;
+                    productToEdit.Price = product.Price;
+                    productToEdit.Image = product.Image;
+                    
+                    this.productContext.Update(productToEdit);
+                    this.productContext.Commit();
                     return RedirectToAction("Index");
                 }
             }
@@ -95,7 +101,7 @@ namespace Shop.WebUI.Controllers
 
         public ActionResult Delete(string Id)
         {
-            Product productToDelete = new Product();  // TODO: Consultar a base de dados e obter o produto consoante o Id.
+            Product productToDelete = this.productContext.Find(Id);
 
             if (productToDelete == null)
             {
@@ -111,7 +117,7 @@ namespace Shop.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(Product product, string Id)
         {
-            Product productToDelete = new Product();  // TODO: Consultar a base de dados e obter o produto consoante o Id.
+            Product productToDelete = this.productContext.Find(Id);
 
             if (productToDelete == null)
             {
@@ -119,8 +125,9 @@ namespace Shop.WebUI.Controllers
             }
             else
             {
-                // TODO: Apagar o produto da base de dados.
-                return View(productToDelete);
+                this.productContext.Delete(Id);
+                this.productContext.Commit();
+                return RedirectToAction("Index");
             }
         }
     }

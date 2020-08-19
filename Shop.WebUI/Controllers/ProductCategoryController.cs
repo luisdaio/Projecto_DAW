@@ -13,18 +13,16 @@ namespace Shop.WebUI.Controllers
         IRepository<ProductCategory> productCategoryContext;
         public ProductCategoryController(IRepository<ProductCategory> productCategoryContext)
         {
-            // TODO: Inicializar Objecto que interage com a base de dados.
             this.productCategoryContext = productCategoryContext;
         }
 
         // GET: ProductCategory
         public ActionResult Index()
         {
-            List<ProductCategory> categories = new List<ProductCategory>(); // TODO: obter a lista de contactos da base de dados.
-            categories.Add(new ProductCategory("Telemóveis"));
+            List<ProductCategory> categories = productCategoryContext.Collection().ToList();
             return View(categories);
         }
-
+           
         // GET: ProductCategory/Create
         public ActionResult Create()
         {
@@ -42,7 +40,8 @@ namespace Shop.WebUI.Controllers
             }
             else
             {
-                // TODO: Inserir a categoria na base de dados.
+                this.productCategoryContext.Insert(category);
+                this.productCategoryContext.Commit();
                 return RedirectToAction("Index");
             }
         }
@@ -50,7 +49,7 @@ namespace Shop.WebUI.Controllers
         // GET: ProductCategory/Edit/5
         public ActionResult Edit(string Id)
         {
-            ProductCategory category = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
+            ProductCategory category = this.productCategoryContext.Find(Id);
 
             if (category == null)
             {
@@ -66,7 +65,7 @@ namespace Shop.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(ProductCategory category, string Id)
         {
-            ProductCategory categoryToEdit = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
+            ProductCategory categoryToEdit = this.productCategoryContext.Find(Id);
 
             if (categoryToEdit == null)
             {
@@ -81,7 +80,9 @@ namespace Shop.WebUI.Controllers
                 }
                 else
                 {
-                    //TODO: Guardar as alterações na base de dados.
+                    categoryToEdit.Name = category.Name;
+                    this.productCategoryContext.Update(categoryToEdit);
+                    this.productCategoryContext.Commit();
                     return RedirectToAction("Index");
                 }
             }
@@ -90,7 +91,7 @@ namespace Shop.WebUI.Controllers
         // GET: ProductCategory/Delete/5
         public ActionResult Delete(string Id)
         {
-            ProductCategory categoryToDelete = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
+            ProductCategory categoryToDelete = this.productCategoryContext.Find(Id);
 
             if (categoryToDelete == null)
             {
@@ -108,7 +109,7 @@ namespace Shop.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(ProductCategory category, string Id)
         {
-            ProductCategory categoryToDelete = new ProductCategory();  // TODO: Consultar a base de dados e obter a categoria consoante o Id.
+            ProductCategory categoryToDelete = this.productCategoryContext.Find(Id);
 
             if (categoryToDelete == null)
             {
@@ -116,10 +117,10 @@ namespace Shop.WebUI.Controllers
             }
             else
             {
-                // TODO: Apagar a categoria da base de dados.
+                this.productCategoryContext.Delete(Id);
+                this.productCategoryContext.Commit();
                 return View(categoryToDelete);
             }
         }
-        
     }
 }

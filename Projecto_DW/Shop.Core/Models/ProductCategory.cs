@@ -15,10 +15,5 @@ namespace Shop.Core.Models
         [DisplayName("Category")]
         [Required]
         public string Name { get; set; }
-
-        public ProductCategory(string Name)
-        {
-            this.Name = Name;
-        }
     }
 }
