@@ -1,5 +1,6 @@
 ﻿using Shop.Core.Contracts;
 using Shop.Core.Models;
+using Shop.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web;
 
 namespace Shop.Services
 {
-    public class CartService
+    public class CartService : ICartService
     {
         IRepository<Product> productContext;
         IRepository<Cart> cartContext;
@@ -98,6 +99,53 @@ namespace Shop.Services
             {
                 cart.CartItems.Remove(item);
                 cartContext.Commit();
+            }
+        }
+
+        public List<CartItemViewModel> GetCartItems(HttpContextBase httpContext)
+        {
+            Cart cart = GetCart(httpContext, false);
+
+            if(cart != null)
+            {
+                var result = (from b in cart.CartItems
+                              join p in productContext.Collection() on b.ProductId equals p.Id
+                              select new CartItemViewModel()
+                              {
+                                  Id = b.Id,
+                                  Quantity = b.Quantity,
+                                  ProductName = p.Name,
+                                  ProductPrice = p.Price,
+                                  Image = p.Image
+                              }).ToList();
+                return result;
+            }
+            else
+            {
+                return new List<CartItemViewModel>();
+            }
+        }
+
+        public CartSummaryViewModel GetCartSummary(HttpContextBase httpContext)
+        {
+            Cart cart = GetCart(httpContext, false);
+            CartSummaryViewModel viewModel = new CartSummaryViewModel();
+            if (cart != null)
+            {
+                int? cartCount = (from b in cart.CartItems
+                                  select b.Quantity).Sum(); 
+
+                decimal? cartTotal = (from b in cart.CartItems
+                                      join p in productContext.Collection() on b.ProductId equals p.Id
+                                      select b.Quantity * p.Price).Sum();
+
+                viewModel.CartCount = cartCount ?? 0;
+                viewModel.CartTotal = cartTotal ?? decimal.Zero;
+                return viewModel;
+            }
+            else
+            {
+                return viewModel;
             }
         }
     }
