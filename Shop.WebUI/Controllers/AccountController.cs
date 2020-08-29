@@ -166,8 +166,8 @@ namespace Shop.WebUI.Controllers
 
                     };
 
-                    customersContext.Insert(customer);
-                    customersContext.Commit();
+                    customerContext.Insert(customer);
+                    customerContext.Commit();
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

@@ -148,5 +148,12 @@ namespace Shop.Services
                 return viewModel;
             }
         }
+
+        public void ClearCart(HttpContextBase httpContext)
+        {
+            Cart cart = GetCart(httpContext, false);
+            cart.CartItems.Clear();
+            cartContext.Commit();
+        }
     }
 }
