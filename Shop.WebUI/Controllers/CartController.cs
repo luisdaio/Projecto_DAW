@@ -83,7 +83,7 @@ namespace Shop.WebUI.Controllers
                 Order.OrderStatus = "Order Created";
                 Order.Email = User.Identity.Name;
 
-                // Payment Process;
+                // TODO: Payment Process;
 
                 Order.OrderStatus = "Order Processed";
                 OrderService.CreateOrder(Order, cartItems);

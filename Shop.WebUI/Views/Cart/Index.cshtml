@@ -4,20 +4,20 @@
     ViewBag.Title = "Cart";
 }
 
-<h2>Index</h2>
+<h2>Your Cart</h2>
 
 
 <table class="table">
     <tr>
         <th></th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.DisplayNameFor(model => model.WatchName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
+            @Html.DisplayNameFor(model => model.WatchPrice)
         </th>
         <th>
             Total
@@ -32,16 +32,16 @@
                 <img class="img-thumbnail" style="height:50px" src="~/Content/ProductImages/@item.Image" />
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
+                @Html.DisplayFor(modelItem => item.WatchName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @string.Format("{0:c}", item.ProductPrice)
+                @string.Format("{0:c}", item.WatchPrice)
             </td>
             <td>
-                @string.Format("{0:c}", item.ProductPrice * item.Quantity)
+                @string.Format("{0:c}", item.WatchPrice * item.Quantity)
             </td>
             <td>
                 <a href="@Url.Action("RemoveFromCart", "Cart", new { Id = item.Id })" class="btn btn-danger">Delete</a>
@@ -55,7 +55,7 @@
             </strong>
         </td>
         <td>
-            @string.Format("{0:c}", (from p in Model select p.ProductPrice * p.Quantity).Sum())
+            @string.Format("{0:c}", (from p in Model select p.WatchPrice * p.Quantity).Sum())
         </td>
         <td>
             <a href="@Url.Action("Checkout", "Cart")">Checkout</a>

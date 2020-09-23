@@ -5,44 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/myStyle.css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <script src="https://kit.fontawesome.com/73b8983b5f.js" crossorigin="anonymous"></script>    @RenderSection("scripts", required: false)
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-black">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            @Html.ActionLink("TIMELESS", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", new { controller = "Home" }, htmlAttributes: new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Watches", "Watches", new { controller = "Home" }, htmlAttributes: new { @class = "nav-link" })</li>
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        <li class="nav-item">@Html.ActionLink("Admin", "Index", new { controller = "Admin" }, htmlAttributes: new { @class = "nav-link" })</li>
+                    }
+                    @Html.Partial("_LoginPartial")
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-shopping-cart fa-2x"></i>
+                        </a>
+                    </li>
+                    @{
+                        Html.RenderAction("CartSummary", "Cart");
                     }
                 </ul>
-                @Html.Partial("_LoginPartial")
-                @{ 
-                    Html.RenderAction("CartSummary", "Cart");
-                }
             </div>
         </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
     </div>
-    <footer class="modal-footer">
+    <footer class="card-footer">
         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>

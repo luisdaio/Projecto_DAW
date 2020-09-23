@@ -98,6 +98,18 @@
     <Compile Include="Migrations\202008241856164_OrderModel.designer.cs">
       <DependentUpon>202008241856164_OrderModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009221611372_ModelCorrections.cs" />
+    <Compile Include="Migrations\202009221611372_ModelCorrections.designer.cs">
+      <DependentUpon>202009221611372_ModelCorrections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009221650558_NameCorrections.cs" />
+    <Compile Include="Migrations\202009221650558_NameCorrections.designer.cs">
+      <DependentUpon>202009221650558_NameCorrections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009222143456_WatchModelCorrection.cs" />
+    <Compile Include="Migrations\202009222143456_WatchModelCorrection.designer.cs">
+      <DependentUpon>202009222143456_WatchModelCorrection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -155,6 +167,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008241856164_OrderModel.resx">
       <DependentUpon>202008241856164_OrderModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009221611372_ModelCorrections.resx">
+      <DependentUpon>202009221611372_ModelCorrections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009221650558_NameCorrections.resx">
+      <DependentUpon>202009221650558_NameCorrections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009222143456_WatchModelCorrection.resx">
+      <DependentUpon>202009222143456_WatchModelCorrection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

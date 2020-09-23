@@ -9,9 +9,9 @@ namespace Shop.Core.Models
     public class OrderItem : BaseEntity
     {
         public string OrderId { get; set; }
-        public string ProductId { get; set; }
-        public string ProductName { get; set; }
-        public decimal ProductPrice { get; set; }
+        public string WatchId { get; set; }
+        public string WatchName { get; set; }
+        public decimal WatchPrice { get; set; }
         public string Image { get; set; }
         public int Quantity { get; set; }
     }

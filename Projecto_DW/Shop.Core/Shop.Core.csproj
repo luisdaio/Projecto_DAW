@@ -52,13 +52,13 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderItem.cs" />
-    <Compile Include="Models\ProductCategory.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\Watch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CartItemViewModel.cs" />
     <Compile Include="ViewModels\CartSummaryViewModel.cs" />
-    <Compile Include="ViewModels\ProductListViewModel.cs" />
-    <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\WatchListViewModel.cs" />
+    <Compile Include="ViewModels\WatchViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

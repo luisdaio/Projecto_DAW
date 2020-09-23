@@ -23,10 +23,10 @@ namespace Shop.Services
             foreach (var item in cartItems)
             {
                 baseOrder.OrderItems.Add(new OrderItem() { 
-                    ProductName = item.ProductName,
-                    ProductId = item.Id,
+                    WatchName = item.WatchName,
+                    WatchId = item.Id,
                     Image = item.Image,
-                    ProductPrice = item.ProductPrice,
+                    WatchPrice = item.WatchPrice,
                     Quantity = item.Quantity
                 });            
             }

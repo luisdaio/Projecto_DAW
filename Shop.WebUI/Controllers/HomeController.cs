@@ -11,31 +11,37 @@ namespace Shop.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        IRepository<Product> productContext;
-        IRepository<ProductCategory> productCategoryContext;
+        IRepository<Watch> watchContext;
+        IRepository<Brand> brandContext;
 
-        public HomeController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
+        public HomeController(IRepository<Watch> watchContext, IRepository<Brand> brandContext)
         {
-            this.productContext = productContext;
-            this.productCategoryContext = productCategoryContext;
+            this.watchContext = watchContext;
+            this.brandContext = brandContext;
         }
-        public ActionResult Index(string Category = null)
+
+        public ActionResult Index()
         {
-            List<Product> products;
-            List<ProductCategory> categories = productCategoryContext.Collection().ToList();
-            
-            if(Category == null)
+            return View();
+        }
+
+        public ActionResult Watches(string Brand = null)
+        {
+            List<Watch> watches;
+            List<Brand> brands = brandContext.Collection().ToList();
+
+            if (Brand == null)
             {
-                products = productContext.Collection().ToList();
+                watches = watchContext.Collection().ToList();
             }
             else
             {
-                products = productContext.Collection().Where(p => p.Category == Category).ToList();
+                watches = watchContext.Collection().Where(p => p.Brand == Brand).ToList();
             }
 
-            ProductListViewModel viewModel = new ProductListViewModel();
-            viewModel.Products = products;
-            viewModel.ProductCategories = categories;
+            WatchListViewModel viewModel = new WatchListViewModel();
+            viewModel.Watches = watches;
+            viewModel.Brands = brands;
             return View(viewModel);
         }
 
@@ -55,16 +61,16 @@ namespace Shop.WebUI.Controllers
 
         public ActionResult Details(string Id)
         {
-            Product product = this.productContext.Find(Id);
+            Watch watch = this.watchContext.Find(Id);
 
-            if (product == null)
+            if (watch == null)
             {
                 return HttpNotFound();
             }
             else
             {
 
-                return View(product);
+                return View(watch);
 
             }
         }

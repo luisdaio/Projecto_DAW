@@ -12,14 +12,14 @@ namespace Shop.Services
 {
     public class CartService : ICartService
     {
-        IRepository<Product> productContext;
+        IRepository<Watch> watchContext;
         IRepository<Cart> cartContext;
 
         public const string CartSessionName = "shopCart";
 
-        public CartService(IRepository<Product> ProductContext, IRepository<Cart> CartContext)
+        public CartService(IRepository<Watch> WatchContext, IRepository<Cart> CartContext)
         {
-            this.productContext = ProductContext;
+            this.watchContext = WatchContext;
             this.cartContext = CartContext;
         }
 
@@ -67,16 +67,16 @@ namespace Shop.Services
             return cart;
         }
 
-        public void AddToCart(HttpContextBase httpContext, string productId)
+        public void AddToCart(HttpContextBase httpContext, string WatchtId)
         {
             Cart cart = GetCart(httpContext, true);
-            CartItem item = cart.CartItems.FirstOrDefault(i => i.ProductId == productId);
+            CartItem item = cart.CartItems.FirstOrDefault(i => i.WatchId == WatchtId);
 
             if(item == null)
             {
                 item = new CartItem() {
                     CartId = cart.Id,
-                    ProductId = productId,
+                    WatchId = WatchtId,
                     Quantity = 1
                 };
 
@@ -109,14 +109,14 @@ namespace Shop.Services
             if(cart != null)
             {
                 var result = (from b in cart.CartItems
-                              join p in productContext.Collection() on b.ProductId equals p.Id
+                              join w in watchContext.Collection() on b.WatchId equals w.Id
                               select new CartItemViewModel()
                               {
                                   Id = b.Id,
                                   Quantity = b.Quantity,
-                                  ProductName = p.Name,
-                                  ProductPrice = p.Price,
-                                  Image = p.Image
+                                  WatchName = w.Name,
+                                  WatchPrice = w.Price,
+                                  Image = w.Image
                               }).ToList();
                 return result;
             }
@@ -136,8 +136,8 @@ namespace Shop.Services
                                   select b.Quantity).Sum(); 
 
                 decimal? cartTotal = (from b in cart.CartItems
-                                      join p in productContext.Collection() on b.ProductId equals p.Id
-                                      select b.Quantity * p.Price).Sum();
+                                      join w in watchContext.Collection() on b.WatchId equals w.Id
+                                      select b.Quantity * w.Price).Sum();
 
                 viewModel.CartCount = cartCount ?? 0;
                 viewModel.CartTotal = cartTotal ?? decimal.Zero;
