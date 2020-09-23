@@ -31,14 +31,17 @@
     {
         <tr>
             <th>
-                <img class="img-thumbnail" style="" src="~/Content/ProductImages/@item.Image" />
+                <img class="img-thumbnail" src="~/Content/ProductImages/@item.Image" />
             </th>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <div class="clamp">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
             </td>
-            <td style=" overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical;-webkit-line-clamp:4;">
-
-                @Html.DisplayFor(modelItem => item.Description)
+            <td>
+                <div class="clamp">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
             </td>
             <td>
                 @string.Format("{0:c}", item.Price)
@@ -46,7 +49,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Brand)
             </td>
-            <td style="display:inline-flex">
+            <td style="display:flex">
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn-color" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn-color" })
             </td>

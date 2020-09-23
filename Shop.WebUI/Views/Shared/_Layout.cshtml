@@ -10,40 +10,44 @@
     <script src="https://kit.fontawesome.com/73b8983b5f.js" crossorigin="anonymous"></script>    @RenderSection("scripts", required: false)
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-black">
-        <div class="container">
-            @Html.ActionLink("TIMELESS", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">@Html.ActionLink("Home", "Index", new { controller = "Home" }, htmlAttributes: new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Watches", "Watches", new { controller = "Home" }, htmlAttributes: new { @class = "nav-link" })</li>
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">@Html.ActionLink("Admin", "Index", new { controller = "Admin" }, htmlAttributes: new { @class = "nav-link" })</li>
-                    }
-                    @Html.Partial("_LoginPartial")
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-shopping-cart fa-2x"></i>
-                        </a>
-                    </li>
-                    @{
-                        Html.RenderAction("CartSummary", "Cart");
-                    }
-                </ul>
+<body class = "d-flex flex-column">
+    <div id="page-content">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-black">
+            <div class="container">
+                @Html.ActionLink("TIMELESS", "Index", new { controller = "Home" }, new { @class = "navbar-brand" })
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">@Html.ActionLink("Home", "Index", new { controller = "Home" }, htmlAttributes: new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Watches", "Watches", new { controller = "Home" }, htmlAttributes: new { @class = "nav-link" })</li>
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Admin", "Index", new { controller = "Admin" }, htmlAttributes: new { @class = "nav-link" })</li>
+                        }
+                        @Html.Partial("_LoginPartial")
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-shopping-cart fa-2x"></i>
+                            </a>
+                        </li>
+                        @{
+                            Html.RenderAction("CartSummary", "Cart");
+                        }
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <div class="container body-content">
-        @RenderBody()
+        <div class="container body-content">
+            @RenderBody()
+        </div>
     </div>
-    <footer class="card-footer">
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    <footer id="sticky-footer" class="py-4 bg-black text-white-50">
+        <div class="container text-center">
+            <small>Copyright &copy; TIMELESS - @DateTime.Now.Year</small>
+        </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")

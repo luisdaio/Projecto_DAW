@@ -92,9 +92,8 @@ namespace Shop.WebUI.Controllers
                 if (!ModelState.IsValid)
                 {
                     var errors = ModelState.Values.SelectMany(v => v.Errors);
-                    throw new Exception();
                     WatchViewModel viewModel = new WatchViewModel();
-                    viewModel.Watch = watch;
+                    viewModel.Watch = watchToEdit;
                     viewModel.Brands = this.brandContext.Collection();
                     return View(viewModel);
                 }

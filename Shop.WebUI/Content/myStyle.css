@@ -2,6 +2,19 @@
     font-family: 'Playfair Display', Arial;
     padding-top:0px !important;
 }
+html,
+body {
+    height: 100%;
+}
+
+#page-content {
+    flex: 1 0 auto;
+}
+
+#sticky-footer {
+    flex-shrink: unset;
+}
+
 
 .navbar .nav-link {
     font-size: 14px;
@@ -180,10 +193,8 @@
 }
 
 .clamp {
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
-

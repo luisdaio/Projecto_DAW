@@ -3,10 +3,10 @@
     <tr>
 
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            @Html.DisplayNameFor(model => model.WatchName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
+            @Html.DisplayNameFor(model => model.WatchPrice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
@@ -20,16 +20,16 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
+                @Html.DisplayFor(modelItem => item.WatchName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
+                @Html.DisplayFor(modelItem => item.WatchPrice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @String.Format("{0:c}", item.ProductPrice * item.Quantity)
+                @String.Format("{0:c}", item.WatchPrice * item.Quantity)
             </td>
         </tr>
     }
@@ -39,7 +39,7 @@
             <strong>Order Total:</strong>
         </td>
         <td>
-            @String.Format("{0:c}", (from p in Model select p.ProductPrice * p.Quantity).Sum())
+            @String.Format("{0:c}", (from p in Model select p.WatchPrice * p.Quantity).Sum())
         </td>
     </tr>
 </table>
